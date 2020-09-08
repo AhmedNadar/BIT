@@ -8,21 +8,26 @@
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
-#  first_name             :string
-#  last_name              :string
-#  admin                  :boolean          default(FALSE)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  slug                   :string
 #
 
 class User < ApplicationRecord
+  rolify
   has_person_name
-
-  extend FriendlyId
-  friendly_id :name, use: :slugged
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+	def admin?
+		has_role?(:admin)
+	end
+
+  def client?
+		has_role?(:client)
+  end
+
 end

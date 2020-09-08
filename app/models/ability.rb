@@ -1,43 +1,27 @@
 # frozen_string_literal: true
-
-
-
-
-class Ability
-  include CanCan::Ability
-
-  def initialize(user)
-    can :read, Post, public: true
-
-    if user.present?  # additional permissions for logged in users (they can read their own posts)
-      can :read, Post, user_id: user.id
-
-      if user.admin?  # additional permissions for administrators
-        can :read, Post
-      end
-    end
-  end
-end
-
-
-
 class Ability
   include CanCan::Ability
 
   def initialize(user)
     # Define abilities for the passed in user here. For example:
+    user ||= User.new # guest user (not logged in)
 
-      user ||= User.new # guest user (not logged in)
+    if user.admin?
+      can :manage, :all
 
-      if user.has_role?(:admin)
-        can :manage, :all
-      elsif user.has_role?(:client)
-        can :manage, Company, user_id: user.id
-        can :manage, Profile, user_id: user.id
-      elsif user.has_role?(:guest)
-        can :read, :all
-      end
-    #
+    elsif user.client?
+      can :read, Company
+      can :manage, Company, user_id: user.id
+      can :manage, Profile, user_id: user.id
+
+    else
+      can :read, all
+    end
+  end
+end      
+  
+  
+  #
     # The first argument to `can` is the action you are giving the user
     # permission to do.
     # If you pass :manage it will apply to every action. Other common actions
@@ -55,5 +39,5 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
-  end
-end
+
+
