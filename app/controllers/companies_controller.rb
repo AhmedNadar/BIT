@@ -12,6 +12,7 @@ class CompaniesController < ApplicationController
 
   def show
     respond_with(@company)
+    redirect_to_slug(action: :show, object: set_company)
   end
 
   def new
