@@ -12,7 +12,7 @@ class Ability
     elsif user.client?
       can :read, Company
       can :manage, Company, user_id: user.id
-      can :manage, Profile, user_id: user.id
+      # can :manage, Profile, user_id: user.id
 
     else
       can :read, all

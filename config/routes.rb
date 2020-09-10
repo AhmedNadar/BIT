@@ -1,6 +1,14 @@
 # == Route Map
 #
 #                                Prefix Verb   URI Pattern                                                                              Controller#Action
+#                             companies GET    /companies(.:format)                                                                     companies#index
+#                                       POST   /companies(.:format)                                                                     companies#create
+#                           new_company GET    /companies/new(.:format)                                                                 companies#new
+#                          edit_company GET    /companies/:id/edit(.:format)                                                            companies#edit
+#                               company GET    /companies/:id(.:format)                                                                 companies#show
+#                                       PATCH  /companies/:id(.:format)                                                                 companies#update
+#                                       PUT    /companies/:id(.:format)                                                                 companies#update
+#                                       DELETE /companies/:id(.:format)                                                                 companies#destroy
 #                           sidekiq_web        /sidekiq                                                                                 Sidekiq::Web
 #                      new_user_session GET    /users/sign_in(.:format)                                                                 devise/sessions#new
 #                          user_session POST   /users/sign_in(.:format)                                                                 devise/sessions#create
@@ -48,6 +56,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :companies
     authenticate :user, lambda { |u| u.admin? } do
       mount Sidekiq::Web => '/sidekiq'
     end
