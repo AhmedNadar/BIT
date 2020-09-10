@@ -3,15 +3,24 @@
 # Table name: companies
 #
 #  id            :bigint           not null, primary key
-#  name          :string
 #  email         :string
-#  website       :string
 #  found_date    :date
-#  user_id       :bigint           not null
+#  name          :string
+#  slug          :string           indexed
+#  suggested_url :string
+#  website       :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  slug          :string
-#  suggested_url :string
+#  user_id       :bigint           not null, indexed
+#
+# Indexes
+#
+#  index_companies_on_slug     (slug) UNIQUE
+#  index_companies_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
 require 'rails_helper'
 
