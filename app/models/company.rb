@@ -23,16 +23,23 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Company < ApplicationRecord
-  
+  include Sluggable
+
   # association 
   belongs_to :user, optional: true
   has_rich_text :details
   has_one_attached :logo
 
-  include FriendlyId
-  friendly_id :name, use: [:slugged, :finders]
+  # include FriendlyId
+  # friendly_id :name, use: [:slugged, :finders]
+  # # Friendly_Id code to only update the url for new records
+  # def should_generate_new_friendly_id?
+  #   new_record? || slug.blank?
+  # end
 
-
+  def slug_candidates
+    [:name]
+  end 
 
   # validatation
   validates           :name,                presence: true
