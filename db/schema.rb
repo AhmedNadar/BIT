@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_10_105139) do
+ActiveRecord::Schema.define(version: 2020_09_09_175147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 2020_09_10_105139) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
-    t.string "suggested_url"
     t.index ["slug"], name: "index_companies_on_slug", unique: true
     t.index ["user_id"], name: "index_companies_on_user_id"
   end
@@ -69,15 +68,6 @@ ActiveRecord::Schema.define(version: 2020_09_10_105139) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
-  end
-
-  create_table "profiles", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -112,5 +102,4 @@ ActiveRecord::Schema.define(version: 2020_09_10_105139) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "companies", "users"
-  add_foreign_key "profiles", "users"
 end

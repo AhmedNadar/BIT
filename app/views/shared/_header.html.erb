@@ -26,15 +26,7 @@
         <% if user_signed_in? %>
           <li class="py-2 text-center lg:pl-2 lg:py-0 lg:text-left"><%= link_to "Edit account", edit_user_registration_path, class: "w-full text-lg btn btn-transparent lg:w-auto lg:text-sm"  %></li>
           <li class="py-2 text-center lg:pl-2 lg:py-0 lg:text-left"><%= link_to "Log out", destroy_user_session_path, method: :delete, class: "w-full text-lg btn btn-transparent lg:w-auto lg:text-sm" %></li>
-          
-          <% if current_user.profile %>
-            <li class="py-2 text-center lg:pl-2 lg:py-0 lg:text-left">
-              <%= link_to "Hi! #{current_user.profile.first_name.upcase}'s profile", profile_path(current_user.profile), class: "w-full ml-2 text-lg btn btn-black lg:w-auto lg:text-sm" %>
-            </li>
-          <% else %>
-            <li class=""><%= link_to 'Create profile', new_profile_path, class: "w-full ml-2 text-lg btn btn-black lg:w-auto lg:text-sm" %></li>
-          <% end %>
-                  
+                    
           <% else %>
           
           <li class="py-2 text-center lg:pl-2 lg:py-0 lg:text-left"><%= link_to "Login", new_user_session_path, class:"w-full text-lg btn btn-transparent lg:w-auto lg:text-sm" %></li>

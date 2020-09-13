@@ -26,14 +26,6 @@
 #                                       PATCH  /companies/:id(.:format)                                                                 companies#update
 #                                       PUT    /companies/:id(.:format)                                                                 companies#update
 #                                       DELETE /companies/:id(.:format)                                                                 companies#destroy
-#                              profiles GET    /profiles(.:format)                                                                      profiles#index
-#                                       POST   /profiles(.:format)                                                                      profiles#create
-#                           new_profile GET    /profiles/new(.:format)                                                                  profiles#new
-#                          edit_profile GET    /profiles/:id/edit(.:format)                                                             profiles#edit
-#                               profile GET    /profiles/:id(.:format)                                                                  profiles#show
-#                                       PATCH  /profiles/:id(.:format)                                                                  profiles#update
-#                                       PUT    /profiles/:id(.:format)                                                                  profiles#update
-#                                       DELETE /profiles/:id(.:format)                                                                  profiles#destroy
 #                           mycompanies GET    /mycompanies(.:format)                                                                   companies#my_companies
 #         rails_postmark_inbound_emails POST   /rails/action_mailbox/postmark/inbound_emails(.:format)                                  action_mailbox/ingresses/postmark/inbound_emails#create
 #            rails_relay_inbound_emails POST   /rails/action_mailbox/relay/inbound_emails(.:format)                                     action_mailbox/ingresses/relay/inbound_emails#create
@@ -73,7 +65,6 @@ Rails.application.routes.draw do
   root to: 'home#index'
   devise_for :users  
   resources :companies
-  resources :profiles
   
   get 'mycompanies'     => 'companies#my_companies'
 end
