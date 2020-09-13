@@ -1,28 +1,46 @@
-<header class="mb-4">
-  <nav class="flex flex-wrap items-center justify-between px-3 py-3 text-gray-700 bg-gray-100 lg:px-10">
-    <div class="flex items-center mr-6 flex-no-shrink">
-      <%= link_to "Built In Toronto", root_path, class:"link text-xl tracking-tight font-semibold" %>
-    </div>
+<header class="sticky top-0 z-50 w-full px-4 py-4 lg:px-0", style="background-color: hsla(0,0%,100%,.9);}">
+  <div class="container flex flex-wrap items-center justify-between mx-auto">
+
+    <%= link_to root_path, class:"flex flex-wrap items-center justify-start" do %>
+      <h1 class="text-2xl font-black leading-none font-display">Built In Toronto</h1>
+      <p class="relative block ml-1 font-sans text-xs italic">Beta</p>
+    <% end %>
+  
     <div class="block lg:hidden">
-      <button class="flex items-center px-3 py-2 border border-gray-500 rounded text-grey hover:text-gray-600 hover:border-gray-600">
-        <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
-        </svg>
+      <button type="button" id="mobile-menu" class="flex items-center px-2 text-white lg:px-4 lg:hidden focus:outline-none focus:text-gray-700">
+          <svg class="w-6 h-6 text-gray-700 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+          </svg>
       </button>
     </div>
-    <div class="items-center block w-full text-center lg:flex-1 lg:flex lg:text-left">
-      <div class="lg:flex-grow">
-        <%= link_to "All Companies", companies_path, class: "block mt-4 lg:inline-block lg:mt-0 lg:mr-4 mb-2 lg:mb-0 link" %>
-      </div>
-      <div class="items-center block w-full mt-2 text-center lg:flex lg:flex-row lg:flex-1 lg:mt-0 lg:text-left lg:justify-end">
+
+    <ul class="flex-wrap justify-start block lg:flex">
+      <li class="py-2 text-center lg:pl-2 lg:py-0 lg:text-left"><%= link_to "All Companies", companies_path, class: "w-full text-lg btn btn-transparent lg:w-auto lg:text-sm" %></li>
+      <li class="py-2 text-center lg:pl-2 lg:py-0 lg:text-left"><%= link_to "My companies", mycompanies_path, class: "w-full text-lg btn btn-transparent lg:w-auto lg:text-sm" %></li>            
+    </ul>
+
+
+    <nav class="hidden w-full lg:block lg:w-auto" id="main-nav">
+      <ul class="flex-wrap items-center justify-start block lg:flex">
         <% if user_signed_in? %>
-          <%= link_to "Edit account", edit_user_registration_path, class: "btn btn-default mb-2 lg:mr-2 lg:mb-0 block" %>
-          <%= link_to "Log out", destroy_user_session_path, method: :delete, class:"btn btn-default mb-2 lg:mb-0 block" %>
-        <% else %>
-          <%= link_to "Login", new_user_session_path, class:"btn btn-default mb-2 lg:mr-2 lg:mb-0 block" %>
-          <%= link_to "Sign Up", new_user_registration_path, class:"btn btn-default block" %>
+          <li class="py-2 text-center lg:pl-2 lg:py-0 lg:text-left"><%= link_to "Edit account", edit_user_registration_path, class: "w-full text-lg btn btn-transparent lg:w-auto lg:text-sm"  %></li>
+          <li class="py-2 text-center lg:pl-2 lg:py-0 lg:text-left"><%= link_to "Log out", destroy_user_session_path, method: :delete, class: "w-full text-lg btn btn-transparent lg:w-auto lg:text-sm" %></li>
+          
+          <% if current_user.profile %>
+            <li class="py-2 text-center lg:pl-2 lg:py-0 lg:text-left">
+              <%= link_to "Hi! #{current_user.profile.first_name.upcase}'s profile", profile_path(current_user.profile), class: "w-full ml-2 text-lg btn btn-black lg:w-auto lg:text-sm" %>
+            </li>
+          <% else %>
+            <li class=""><%= link_to 'Create profile', new_profile_path, class: "w-full ml-2 text-lg btn btn-black lg:w-auto lg:text-sm" %></li>
+          <% end %>
+                  
+          <% else %>
+          
+          <li class="py-2 text-center lg:pl-2 lg:py-0 lg:text-left"><%= link_to "Login", new_user_session_path, class:"w-full text-lg btn btn-transparent lg:w-auto lg:text-sm" %></li>
+          <li class="py-2 text-center lg:pl-2 lg:py-0 lg:text-left"><%= link_to "Sign Up", new_user_registration_path, class:"w-full text-lg btn btn-transparent lg:w-auto lg:text-sm" %></li>
         <% end %>
-      </div>
-    </div>
-  </nav>
+      </ul>
+    </nav>
+  </div>
 </header>

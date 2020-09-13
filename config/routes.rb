@@ -1,29 +1,8 @@
-require 'sidekiq/web'
-
-Rails.application.routes.draw do
-  resources :companies
-    authenticate :user, lambda { |u| u.admin? } do
-      mount Sidekiq::Web => '/sidekiq'
-    end
-
-
-  devise_for :users
-  root to: 'home#index'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-end
-
 # == Route Map
 #
 #                                Prefix Verb   URI Pattern                                                                              Controller#Action
-#                             companies GET    /companies(.:format)                                                                     companies#index
-#                                       POST   /companies(.:format)                                                                     companies#create
-#                           new_company GET    /companies/new(.:format)                                                                 companies#new
-#                          edit_company GET    /companies/:id/edit(.:format)                                                            companies#edit
-#                               company GET    /companies/:id(.:format)                                                                 companies#show
-#                                       PATCH  /companies/:id(.:format)                                                                 companies#update
-#                                       PUT    /companies/:id(.:format)                                                                 companies#update
-#                                       DELETE /companies/:id(.:format)                                                                 companies#destroy
 #                           sidekiq_web        /sidekiq                                                                                 Sidekiq::Web
+#                                  root GET    /                                                                                        home#index
 #                      new_user_session GET    /users/sign_in(.:format)                                                                 devise/sessions#new
 #                          user_session POST   /users/sign_in(.:format)                                                                 devise/sessions#create
 #                  destroy_user_session DELETE /users/sign_out(.:format)                                                                devise/sessions#destroy
@@ -39,7 +18,23 @@ end
 #                                       PUT    /users(.:format)                                                                         devise/registrations#update
 #                                       DELETE /users(.:format)                                                                         devise/registrations#destroy
 #                                       POST   /users(.:format)                                                                         devise/registrations#create
-#                                  root GET    /                                                                                        home#index
+#                             companies GET    /companies(.:format)                                                                     companies#index
+#                                       POST   /companies(.:format)                                                                     companies#create
+#                           new_company GET    /companies/new(.:format)                                                                 companies#new
+#                          edit_company GET    /companies/:id/edit(.:format)                                                            companies#edit
+#                               company GET    /companies/:id(.:format)                                                                 companies#show
+#                                       PATCH  /companies/:id(.:format)                                                                 companies#update
+#                                       PUT    /companies/:id(.:format)                                                                 companies#update
+#                                       DELETE /companies/:id(.:format)                                                                 companies#destroy
+#                              profiles GET    /profiles(.:format)                                                                      profiles#index
+#                                       POST   /profiles(.:format)                                                                      profiles#create
+#                           new_profile GET    /profiles/new(.:format)                                                                  profiles#new
+#                          edit_profile GET    /profiles/:id/edit(.:format)                                                             profiles#edit
+#                               profile GET    /profiles/:id(.:format)                                                                  profiles#show
+#                                       PATCH  /profiles/:id(.:format)                                                                  profiles#update
+#                                       PUT    /profiles/:id(.:format)                                                                  profiles#update
+#                                       DELETE /profiles/:id(.:format)                                                                  profiles#destroy
+#                           mycompanies GET    /mycompanies(.:format)                                                                   companies#my_companies
 #         rails_postmark_inbound_emails POST   /rails/action_mailbox/postmark/inbound_emails(.:format)                                  action_mailbox/ingresses/postmark/inbound_emails#create
 #            rails_relay_inbound_emails POST   /rails/action_mailbox/relay/inbound_emails(.:format)                                     action_mailbox/ingresses/relay/inbound_emails#create
 #         rails_sendgrid_inbound_emails POST   /rails/action_mailbox/sendgrid/inbound_emails(.:format)                                  action_mailbox/ingresses/sendgrid/inbound_emails#create
@@ -66,3 +61,19 @@ end
 #            payment GET  /payments/:id(.:format)       pay/payments#show
 #    webhooks_stripe POST /webhooks/stripe(.:format)    stripe_event/webhook#event
 # webhooks_braintree POST /webhooks/braintree(.:format) pay/webhooks/braintree#create
+
+# For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+require 'sidekiq/web'
+
+Rails.application.routes.draw do
+    authenticate :user, lambda { |u| u.admin? } do
+      mount Sidekiq::Web => '/sidekiq'
+    end
+
+  root to: 'home#index'
+  devise_for :users  
+  resources :companies
+  resources :profiles
+  
+  get 'mycompanies'     => 'companies#my_companies'
+end

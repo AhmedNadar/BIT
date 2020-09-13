@@ -16,7 +16,6 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
-
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -25,11 +24,19 @@ class User < ApplicationRecord
 
   rolify
   
+  # before_create :set_username
+  after_create :assign_default_role
+  # after_create :add_profile
+  before_save :downcase_email
+
   # association 
   has_person_name
   has_many  :companies, dependent: :destroy
+  # has_one  :profile, dependent: :destroy
+  # accepts_nested_attributes_for :profile
+  has_person_name
   has_one_attached :avatar
-  before_save :downcase_email
+  
 
 
   # validation
@@ -38,6 +45,24 @@ class User < ApplicationRecord
                               length:     { maximum: 50 },
                               uniqueness: { case_sensitive: false }
   
+
+  def assign_default_role
+    add_role(:client)
+  end
+  
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  # def add_profile
+  #   create_profile if profile.nil?
+  # end
+
+  # def set_username
+  #   self.username = "#{first_name.downcase.titleize} #{last_name.downcase.titleize}".strip
+  # end
+
+
 	def admin?
 		has_role?(:admin)
 	end

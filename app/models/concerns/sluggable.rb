@@ -11,16 +11,16 @@ module Sluggable
                       uniqueness: true, 
                       allow_nil: true
                       
-    validates :suggested_url, allow_blank: true, 
-                              uniqueness: { 
-                                case_sensitive: false,
-                                message: 'is already taken, leave blank to generate automatically'
-                              }
+    # validates :suggested_url, allow_blank: true, 
+    #                           uniqueness: { 
+    #                             case_sensitive: false,
+    #                             message: 'is already taken, leave blank to generate automatically'
+    #                           }
     # friendly_id :slug_candidates, use: %i[slugged history]
     friendly_id :slugable_candidates, use: %i[slugged history]
 
     def slug_candidates
-      [ :suggested_url, :name ]
+      [:name ]
     end
 
     def slugable_candidates

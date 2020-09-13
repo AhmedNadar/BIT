@@ -29,6 +29,8 @@ class Company < ApplicationRecord
   belongs_to :user, optional: true
   has_rich_text :details
   has_one_attached :logo
+  has_many_attached :photos, dependent: :destroy
+
 
   # include FriendlyId
   # friendly_id :name, use: [:slugged, :finders]
@@ -45,13 +47,11 @@ class Company < ApplicationRecord
 
   # validatation
   validates           :name,                presence: true, uniqueness: {case_sensitive: true}
-  validates_length_of :name, maximum: 80,   allow_blank: false
+  validates_length_of :name,                maximum: 80,    allow_blank: false
   validates           :details,             presence: true
   validates           :email,               presence: true
+  validates           :logo,                presence: true
   validates           :website,             presence: true
   validates           :found_date,          presence: true
-  validates :email, presence: true, length: { maximum: 255 },
-                                    format: { with: VALID_EMAIL_REGEX },
-                                    uniqueness: true
-
+  validates :email, presence: true, length: { maximum: 255 },format: { with: VALID_EMAIL_REGEX },uniqueness: true
 end

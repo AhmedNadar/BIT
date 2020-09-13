@@ -1,0 +1,28 @@
+<h1>
+  My Companies
+</h1>
+<br>
+<hr>
+<br>
+
+<table class="table">
+  <thread>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>details</th>
+      <th colspan="3"></th>
+    </tr>
+  </thread>
+
+  <tbody>
+    <% @my_companies.each do |company| %>
+    <td><%= company.name %></td>
+    <td><%= company.email %></td>
+    <td><%= company.details %></td>
+    <td><%= link_to 'Show', company %></td>
+    <td><%= link_to 'Edit', edit_company_path(company), class: 'btn btn-edit' %></td>
+    <td><%= link_to 'Delete', company, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-destroy' %></td>
+  </tbody>
+  <% end %>
+</table>

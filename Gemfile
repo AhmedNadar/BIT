@@ -84,6 +84,8 @@ gem "stripe_event", "~> 2.3"
 # Ruby bindings for the Stripe API (https://stripe.com/docs/api/ruby)
 gem 'stripe', '~> 5.25.0'
 gem 'whenever', '~> 1.0'
+gem 'rubocop', '~> 0.90.0'
+
 # Use Hirb for better database table display in console
 gem 'hirb', '0.7.3'
 # Simple, efficient background processing for Ruby (http://sidekiq.org)

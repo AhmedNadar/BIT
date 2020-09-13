@@ -1,7 +1,7 @@
-<%= form_with(model: company, local: true) do |form| %>
+<%= form_with(model: company, multipart: true, local: true) do |form| %>
   <% if company.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(company.errors.count, "error") %> prohibited this company from being saved:</h2>
+      <h2 class="font-bold text-red-500"><%= pluralize(company.errors.count, "error") %> prohibited this company from being saved:</h2>
 
       <ul>
         <% company.errors.full_messages.each do |message| %>
@@ -11,29 +11,35 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+
+  <div class="mb-6">
+    <%= form.label :logo, "Comapny logo", class: "label" %>
+    <%= form.file_field :logo %>
   </div>
 
-  <div class="field">
-    <%= form.label :details %>
-    <%= form.rich_text_area :details %>
+  <div class="mb-6">
+    <%= form.label :name, "Company Name", class: "label" %>
+    <%= form.text_field :name, class: "input", required: 'required', placeholder: "Company Name" %>
   </div>
 
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
+  <div class="mb-6">
+    <%= form.label :details, "Company info", class: "label" %>
+    <%= form.rich_text_area :details, class: "input", required: 'required', placeholder: "Enter your company or organization’s mission statement. This will be displayed on your company’s profile." %>
   </div>
 
-  <div class="field">
-    <%= form.label :website %>
-    <%= form.text_field :website %>
+  <div class="mb-6">
+    <%= form.label :email, "Email", class: "label" %>
+    <%= form.text_field :email, class: "input", required: 'required', placeholder: "We’ll send your receipt and confirmation email here." %>
   </div>
 
-  <div class="field">
-    <%= form.label :found_date %>
-    <%= form.date_select :found_date %>
+  <div class="mb-6">
+    <%= form.label :website, "Company's Website URL", class: "label" %>
+    <%= form.text_field :website, class: "input", required: 'required', placeholder: "Example: https://mybusiness.com/" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :found_date, "Founded Date", class: "label" %>
+    <%= form.date_select :found_date, class: "input", required: 'required', placeholder: "When your company was founded" %>
   </div>
 
   <div class="actions">

@@ -231,6 +231,7 @@ module.exports = {
     },
     fontFamily: {
       sans: [
+        'Inter',
         'system-ui',
         '-apple-system',
         'BlinkMacSystemFont',
@@ -564,7 +565,9 @@ module.exports = {
       '-180': '-180deg',
       '-90': '-90deg',
       '-45': '-45deg',
+      '-5': '-5deg',
       '0': '0',
+      '5': '5deg',
       '45': '45deg',
       '90': '90deg',
       '180': '180deg',
@@ -690,7 +693,7 @@ module.exports = {
     strokeWidth: ['responsive'],
     tableLayout: ['responsive'],
     textAlign: ['responsive'],
-    textColor: ['responsive', 'hover', 'focus'],
+    textColor: ['responsive', 'hover', 'focus', 'group-hover'],
     textOpacity: ['responsive', 'hover', 'focus'],
     textDecoration: ['responsive', 'hover', 'focus'],
     textTransform: ['responsive'],
@@ -713,8 +716,8 @@ module.exports = {
     gridRowEnd: ['responsive'],
     transform: ['responsive'],
     transformOrigin: ['responsive'],
-    scale: ['responsive', 'hover', 'focus'],
-    rotate: ['responsive', 'hover', 'focus'],
+    scale: ['responsive', 'hover', 'focus', 'group-hover'],
+    rotate: ['responsive', 'hover', 'focus', 'group-hover'],
     translate: ['responsive', 'hover', 'focus'],
     skew: ['responsive', 'hover', 'focus'],
     transitionProperty: ['responsive'],
@@ -723,5 +726,7 @@ module.exports = {
     transitionDelay: ['responsive'],
   },
   corePlugins: {},
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }

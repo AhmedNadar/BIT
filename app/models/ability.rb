@@ -12,7 +12,8 @@ class Ability
     elsif user.client?
       can :read, Company
       can :manage, Company, user_id: user.id
-      # can :manage, Profile, user_id: user.id
+      can :read, Profile, user_id: user.id
+      can :manage, Profile, user_id: user.id
 
     else
       can :read, all
@@ -20,7 +21,7 @@ class Ability
   end
 end      
   
-  
+
   #
     # The first argument to `can` is the action you are giving the user
     # permission to do.

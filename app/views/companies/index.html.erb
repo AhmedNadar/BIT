@@ -1,37 +1,52 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Companies</h1>
+<div class="container flex flex-wrap items-center justify-center mx-auto">
+  <p id="notice"><%= notice %></p>
+  <div class="w-full pt-0 pb-10 text-center">
+    <h1 class="w-full max-w-2xl mx-auto text-4xl font-black leading-none lg:text-5xl font-display">Toronto Companies</h1>
+    <p class="max-w-xl pt-4 mx-auto mb-6 text-xl leading-normal opacity-75">Experience the startup ecosystem — invest in startups, research the fastest-growing companies, and find a job you love.</p>
+    <a href="#" class="w-full px-5 mb-4 text-lg cursor-pointer btn lg:text-sm lg:w-auto btn-black lg:mr-2 lg:mb-0">Join The Community</a>
+    <a href="#" class="w-full px-5 text-lg cursor-pointer btn btn-black btn-outline lg:text-sm lg:w-auto lg:ml-2">Learn More about the Community</a>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Details</th>
-      <th>Email</th>
-      <th>Website</th>
-      <th>Found date</th>
 
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @companies.each do |company| %>
-      <tr>
-        <td><%= company.name %></td>
-        <td><%= company.details %></td>
-        <td><%= company.email %></td>
-        <td><%= company.website %></td>
-        <td><%= company.found_date %></td>
-        <td><%= company.user_id %></td>
-        <td><%= link_to 'Show', company %></td>
-        <td><%= link_to 'Edit', edit_company_path(company) %></td>
-        <td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="flex flex-wrap items-start justify-start">
+  <% @companies.each do |company| %>
+    <div class="relative w-full p-6 border-2 border-blue-700 rounded-lg lg:w-1/4 lg:mr-8">
+      <%= image_tag company.logo.variant(resize_to_limit: [600, 400]), class: "rounded" if company.logo.present? %>
+      <h3 class="mb-2 text-2xl font-bold"><%= company.name %></h3>
+      <div class="my-1"><%= truncate(strip_tags(company.details.to_s), length: 140) %></div>
+      <p>Email: <%= company.email %></p>
+      <p>Webiste: <%= company.website %></p>
+      <p>Found Date: <%= company.found_date %></p>
+      <p class="text-sm italic opacity-75">Created by: <%= company.user.email %> </p>
+      <%= link_to "View company", company, class: "btn btn-default inline-block text-center my-2" %>
+       <% if can? :manage, company %>  
+      <div class="absolute top-0 right-0 mt-2 mr-2">
+        <%= link_to edit_company_path(company) do %>
+          <svg class="w-6 h-6 text-white opacity-75 fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <title>edit</title><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></svg>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 
-<br>
 
-<%= link_to 'New Company', new_company_path %>
+
+
+
+  <%= link_to 'New Company', new_company_path, class: "w-full px-5 mb-4 text-lg cursor-pointer btn lg:text-sm lg:w-auto btn-black lg:mr-2 lg:mb-0" %>
+
+</div>
+
+
+
+<%#if can? :read, @post %>
+  <%#= link_to "View", @post %>
+<%# end %>
+
+
+<%# if current_user.has_role? :admin %>
